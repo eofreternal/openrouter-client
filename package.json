@@ -3,7 +3,7 @@
   "description": "An API wrapper for OpenRouter",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "license": "MIT",
   "keywords": [
     "openrouter"
@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@types/events": "^3.0.3",
-    "tsup": "^8.3.5",
+    "tsup": "^8.5.1",
     "typescript": "^5.7.2"
   },
   "dependencies": {

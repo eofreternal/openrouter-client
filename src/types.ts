@@ -24,6 +24,18 @@ export type ResponseFormatArray = {
     items: ResponseFormatObject | ResponseFormatArray;
 };
 
+export type Plugin = ({
+    id: 'file-parser',
+    pdf: {
+        engine: "mistral-ocr" | "pdf-text" | "native"
+    },
+} | {
+    id: "web",
+    engine?: "exa" | "native",
+    max_results: number,
+    search_prompt: string
+} | { id: "response-healing" })
+
 export type Config = {
     //Headers
     httpReferer?: string;
@@ -88,14 +100,7 @@ export type Config = {
     // https://platform.openai.com/docs/guides/latency-optimization#use-predicted-outputs
     prediction?: { type: 'content'; content: string };
 
-    plugins?: [
-        {
-            id: 'file-parser',
-            pdf: {
-                engine: "mistral-ocr" | "pdf-text" | "native"
-            },
-        },
-    ],
+    plugins?: Plugin[];
 } & ({
     // Docs: openrouter.ai/docs/model-routing
     models: string[];

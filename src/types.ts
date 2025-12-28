@@ -45,7 +45,7 @@ export type Config = {
         json_schema: {
             name: string;
             strict: boolean;
-            schema: ResponseFormatObject;
+            schema: ResponseFormatObject | ResponseFormatArray;
         };
     };
 

@@ -36,6 +36,9 @@ export type Plugin = ({
     search_prompt: string
 } | { id: "response-healing" })
 
+export type ImageConfigAspectRatio = "1:1" | "2:3" | "3:2" | "3:4" | "4:3" | "4:5" | "5:4" | "9:16" | "16:9" | "21:9";
+export type ImageConfigImageSize = "1K" | "2K" | "4K";
+
 export type Config = {
     //Headers
     httpReferer?: string;
@@ -106,6 +109,15 @@ export type Config = {
     web_search_options?: {
         search_context_size: "low" | "med" | "high"
     };
+
+    // Image gen only
+    modalities?: ['image', 'text'],
+
+    // Google image models only
+    image_config?: {
+        aspect_ratio: ImageConfigAspectRatio,
+        image_size: ImageConfigImageSize
+    }
 
     debug?: {
         echo_upstream_body?: boolean; // If true, returns the transformed request body sent to the provider
@@ -179,6 +191,14 @@ export type ToolCall = {
     function: FunctionCall;
 };
 
+export type ResponseChoiceNonStreamingImage =
+    {
+        type: "image_url",
+        image_url: {
+            url: string
+        }
+    };
+
 export interface ResponseChoiceNonStreaming {
     finish_reason: string | null; // Depends on the model. Ex: 'stop' | 'length' | 'content_filter' | 'tool_calls' | 'function_call'
     message: {
@@ -186,6 +206,7 @@ export interface ResponseChoiceNonStreaming {
         role: string;
         reasoning: string | null;
         tool_calls?: ToolCall[];
+        images?: ResponseChoiceNonStreamingImage[]
     };
     error?: Error;
 }

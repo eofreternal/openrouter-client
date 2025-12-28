@@ -213,8 +213,10 @@ export type ResponseChoiceNonStreamingImage =
         }
     };
 
+export type FinishReason = "stop" | "length" | "tool_calls" | "content_filter" | "error"
 export interface ResponseChoiceNonStreaming {
-    finish_reason: string | null; // Depends on the model. Ex: 'stop' | 'length' | 'content_filter' | 'tool_calls' | 'function_call'
+    finish_reason: FinishReason;
+    native_finish_reason: string;
     message: {
         content: string | null;
         role: string;

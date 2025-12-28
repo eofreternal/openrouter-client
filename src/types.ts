@@ -143,7 +143,20 @@ export type ToolChoice =
 export type VerboseContent =
     { type: 'text'; text: string }
     | { type: 'image_url'; image_url: { url: string } }
-    | { type: "file", file: { filename: string, file_data: string } };
+    | { type: "file", file: { filename: string, file_data: string } }
+    | {
+        type: "input_audio",
+        inputAudio: {
+            data: string,
+            format: "wav" | "mp3" | "aiff" | "aac" | "ogg" | "flac" | "m4a" | "pcm16" | "pcm24"
+        }
+    }
+    | {
+        type: "video_url",
+        videoUrl: {
+            url: string
+        },
+    };
 
 export type Message = {
     role: 'system' | 'user' | 'assistant';

@@ -9,9 +9,9 @@
     "openrouter"
   ],
   "author": "eofr",
-  "homepage": "https://github.com/richmailYT/openrouter-client",
+  "homepage": "https://github.com/eofreternal/openrouter-client",
   "repository": {
-    "url": "git+https://github.com/richmailYT/openrouter-client.git"
+    "url": "https://github.com/eofreternal/openrouter-client.git"
   },
   "scripts": {
     "build": "tsup"

@@ -70,7 +70,9 @@ export type Config = {
         data_collection?: 'allow' | 'deny';
         allow_fallbacks?: boolean;
         require_parameters?: boolean;
+        enforce_distillable_text?: boolean;
     };
+    user?: string; // A stable identifier for your end-users. Used to help detect and prevent abuse.
 
     stop?: string | string[];
 
@@ -101,6 +103,13 @@ export type Config = {
     prediction?: { type: 'content'; content: string };
 
     plugins?: Plugin[];
+    web_search_options?: {
+        search_context_size: "low" | "med" | "high"
+    };
+
+    debug?: {
+        echo_upstream_body?: boolean; // If true, returns the transformed request body sent to the provider
+    };
 } & ({
     // Docs: openrouter.ai/docs/model-routing
     models: string[];

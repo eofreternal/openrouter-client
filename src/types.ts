@@ -168,6 +168,13 @@ export type VerboseContent =
         videoUrl: {
             url: string
         },
+    }
+    | {
+        type: 'file',
+        file: {
+            filename: string,
+            fileData: string,
+        },
     };
 
 export type Message = {

@@ -39,6 +39,10 @@ export type Plugin = ({
 export type ImageConfigAspectRatio = "1:1" | "2:3" | "3:2" | "3:4" | "4:3" | "4:5" | "5:4" | "9:16" | "16:9" | "21:9";
 export type ImageConfigImageSize = "1K" | "2K" | "4K";
 
+export type ReasoningEffort = "high" | "medium" | "low"
+export type ProviderDataCollection = 'allow' | 'deny'
+export type WebSearchOptionsContextSize = "low" | "med" | "high"
+
 export type Config = {
     //Headers
     httpReferer?: string;
@@ -50,7 +54,7 @@ export type Config = {
         exclude?: boolean,
         enabled?: boolean
     } & ({
-        effort?: "high" | "medium" | "low"
+        effort?: ReasoningEffort
     } | {
         max_tokens?: number
     })
@@ -70,7 +74,7 @@ export type Config = {
         order?: string[];
         ignore?: string[];
         quantizations?: Quantizations[];
-        data_collection?: 'allow' | 'deny';
+        data_collection?: ProviderDataCollection;
         allow_fallbacks?: boolean;
         require_parameters?: boolean;
         enforce_distillable_text?: boolean;
@@ -107,7 +111,7 @@ export type Config = {
 
     plugins?: Plugin[];
     web_search_options?: {
-        search_context_size: "low" | "med" | "high"
+        search_context_size: WebSearchOptionsContextSize
     };
 
     // Image gen only
@@ -152,6 +156,8 @@ export type ToolChoice =
         };
     };
 
+export type VerboseContentInputAudioFormat = "wav" | "mp3" | "aiff" | "aac" | "ogg" | "flac" | "m4a" | "pcm16" | "pcm24"
+
 export type VerboseContent =
     { type: 'text'; text: string }
     | { type: 'image_url'; image_url: { url: string } }
@@ -160,7 +166,7 @@ export type VerboseContent =
         type: "input_audio",
         inputAudio: {
             data: string,
-            format: "wav" | "mp3" | "aiff" | "aac" | "ogg" | "flac" | "m4a" | "pcm16" | "pcm24"
+            format: VerboseContentInputAudioFormat
         }
     }
     | {
@@ -177,8 +183,9 @@ export type VerboseContent =
         },
     };
 
+export type MessageRole = 'system' | 'user' | 'assistant'
 export type Message = {
-    role: 'system' | 'user' | 'assistant';
+    role: MessageRole;
     content: string | VerboseContent[];
 }
 

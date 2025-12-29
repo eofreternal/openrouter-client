@@ -273,3 +273,22 @@ export interface GenerationStats {
         cache_discount: null;
     };
 }
+
+export type GetKeyUsage = {
+    label: string;
+    limit: number | null;
+    usage: number;
+    usage_daily: number;
+    usage_weekly: number;
+    usage_monthly: number;
+    byok_usage: number;
+    byok_usage_daily: number;
+    byok_usage_weekly: number;
+    byok_usage_monthly: number;
+    is_free_tier: boolean;
+    is_provisioning_key: boolean;
+    limit_remaining: number | null;
+    limit_reset: string | null;
+    include_byok_in_limit: boolean;
+    expires_at: string | null;
+};

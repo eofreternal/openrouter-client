@@ -88,6 +88,30 @@ export class OpenRouter {
     );
     return await request.json();
   }
+
+  async getKeyUsage(): Promise<
+    | { success: false; data: Types.GetKeyUsage }
+    | {
+      success: true, data: {
+        error: {
+          message: string,
+          code: number
+        }
+      }
+    }
+  > {
+    const request = await fetch("https://openrouter.ai/api/v1/key", {
+      headers: {
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+    })
+    const response = await request.json();
+    if (request.ok == false) {
+      return { success: false, data: response }
+    } else {
+      return { success: true, data: response }
+    }
+  }
 }
 
 export class OpenRouterStream extends EventEmitter {

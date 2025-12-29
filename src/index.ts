@@ -190,7 +190,7 @@ export class OpenRouterStream extends EventEmitter {
           Authorization: `Bearer ${this.apiKey}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ messages: messages, ...config, stream: true }),
+        body: JSON.stringify({ messages: messages, ...config, stream: true, streamOptions: { includeUsage: true } }),
       }
     );
 

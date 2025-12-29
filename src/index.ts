@@ -82,17 +82,36 @@ export class OpenRouter {
     return { success: true, data: response };
   }
 
-  async getGenerationStats(id: string): Promise<Types.GenerationStats> {
+  async getGenerationStats(id: string): Promise<
+    { success: true, data: Types.GenerationStats }
+    | {
+      success: false, data: {
+        error: {
+          message: string,
+          code: number
+        }
+      }
+    }> {
     const request = await fetch(
-      `https://openrouter.ai/api/v1/generation?id=${id}`
+      `https://openrouter.ai/api/v1/generation?id=${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${this.apiKey}`,
+        },
+      }
     );
-    return await request.json();
+    const response = await request.json();
+    if (request.ok == false) {
+      return { success: false, data: response }
+    } else {
+      return { success: true, data: response }
+    }
   }
 
   async getKeyUsage(): Promise<
-    | { success: false; data: Types.GetKeyUsage }
+    { success: true; data: Types.GetKeyUsage }
     | {
-      success: true, data: {
+      success: false, data: {
         error: {
           message: string,
           code: number

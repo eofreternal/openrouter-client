@@ -323,6 +323,56 @@ export class OpenRouterStream extends EventEmitter {
       }
     }
   }
+
+  async getGenerationStats(id: string): Promise<
+    { success: true, data: Types.GenerationStats }
+    | {
+      success: false, data: {
+        error: {
+          message: string,
+          code: number
+        }
+      }
+    }> {
+    const request = await fetch(
+      `https://openrouter.ai/api/v1/generation?id=${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${this.apiKey}`,
+        },
+      }
+    );
+    const response = await request.json();
+    if (request.ok == false) {
+      return { success: false, data: response }
+    } else {
+      return { success: true, data: response }
+    }
+  }
+
+  async getKeyUsage(): Promise<
+    { success: true; data: Types.GetKeyUsage }
+    | {
+      success: false, data: {
+        error: {
+          message: string,
+          code: number
+        }
+      }
+    }
+  > {
+    const request = await fetch("https://openrouter.ai/api/v1/key", {
+      headers: {
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+    })
+    const response = await request.json();
+    if (request.ok == false) {
+      return { success: false, data: response }
+    } else {
+      return { success: true, data: response }
+    }
+  }
 }
 
 export * as types from "./types"

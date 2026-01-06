@@ -123,6 +123,10 @@ export type Config = {
         image_size: ImageConfigImageSize
     }
 
+    usage?: {
+        include: boolean
+    },
+
     debug?: {
         echo_upstream_body?: boolean; // If true, returns the transformed request body sent to the provider
     };

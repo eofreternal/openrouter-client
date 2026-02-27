@@ -1,5 +1,7 @@
 # OpenRouter-client
 
+random fun fact: OpenRouter offers free models. just sign up to OpenRouter and then create an API key, and then go to the models page and search for free models. 
+
 # Info
 
 This is a simple API wrapper for OpenRouter.

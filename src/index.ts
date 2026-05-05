@@ -14,10 +14,13 @@ export const errorCodesAndMesssages = {
 export class OpenRouter {
   apiKey: string;
   globalConfig: Types.Config;
+  apiBase: string;
 
-  constructor(apiKey: string, globalConfig?: Types.Config) {
+  constructor(apiKey: string, globalConfig?: Types.Config, apiBase?: string) {
     this.apiKey = apiKey;
     this.globalConfig = globalConfig || {};
+
+    this.apiBase = (apiBase !== undefined) ? apiBase : "https://openrouter.ai/api/v1"
   }
 
   async chat(
@@ -47,7 +50,7 @@ export class OpenRouter {
     let request;
     try {
       request = await fetch(
-        'https://openrouter.ai/api/v1/chat/completions',
+        `${this.apiBase}/chat/completions`,
         {
           method: 'POST',
           signal: signal,
@@ -93,7 +96,7 @@ export class OpenRouter {
       }
     }> {
     const request = await fetch(
-      `https://openrouter.ai/api/v1/generation?id=${id}`,
+      `${this.apiBase}/generation?id=${id}`,
       {
         headers: {
           Authorization: `Bearer ${this.apiKey}`,
@@ -119,7 +122,7 @@ export class OpenRouter {
       }
     }
   > {
-    const request = await fetch("https://openrouter.ai/api/v1/key", {
+    const request = await fetch(`${this.apiBase}/key`, {
       headers: {
         Authorization: `Bearer ${this.apiKey}`,
       },
@@ -136,11 +139,14 @@ export class OpenRouter {
 export class OpenRouterStream extends EventEmitter {
   apiKey: string;
   globalConfig: Types.Config;
+  apiBase: string;
 
-  constructor(apiKey: string, globalConfig?: Types.Config) {
+  constructor(apiKey: string, globalConfig?: Types.Config, apiBase?: string) {
     super()
     this.apiKey = apiKey;
     this.globalConfig = globalConfig || {};
+
+    this.apiBase = (apiBase !== undefined) ? apiBase : "https://openrouter.ai/api/v1"
   }
 
   /** Sends back chunks. First message sent back might be "hello" and the second chunk might be " world" */
@@ -157,7 +163,7 @@ export class OpenRouterStream extends EventEmitter {
     }
 
     const request = await fetch(
-      'https://openrouter.ai/api/v1/chat/completions',
+      `${this.apiBase}/chat/completions`,
       {
         method: 'POST',
         headers: {
@@ -225,7 +231,7 @@ export class OpenRouterStream extends EventEmitter {
     }
 
     const request = await fetch(
-      'https://openrouter.ai/api/v1/chat/completions',
+      `${this.apiBase}/chat/completions`,
       {
         method: 'POST',
         headers: {
@@ -335,7 +341,7 @@ export class OpenRouterStream extends EventEmitter {
       }
     }> {
     const request = await fetch(
-      `https://openrouter.ai/api/v1/generation?id=${id}`,
+      `${this.apiBase}/generation?id=${id}`,
       {
         headers: {
           Authorization: `Bearer ${this.apiKey}`,
@@ -361,7 +367,7 @@ export class OpenRouterStream extends EventEmitter {
       }
     }
   > {
-    const request = await fetch("https://openrouter.ai/api/v1/key", {
+    const request = await fetch(`${this.apiBase}/key`, {
       headers: {
         Authorization: `Bearer ${this.apiKey}`,
       },

@@ -219,3 +219,29 @@ console.dir(nl);
 
 For streaming, just import and use `OpenRouterStream` instead of `OpenRouter`.
 All the other code stays the same
+
+---
+You can also customize the URL that it makes requests to. It defaults to `https://openrouter.ai/api/v1` but you can customize it like this:
+
+```js
+import { OpenRouter } from "openrouter-client";
+// Add `undefined` because JavaScript doesn't have kwargs
+// Class constructor() signature is: constructor(apiKey: string, globalConfig?: Types.Config, apiBase?: string)
+const OpenRouterClient = new OpenRouter("API key here", undefined, "insert API URL here. Don't leave a trailing slash");
+// valid: `https://openrouter.ai/api/v1`
+// invalid: `https://openrouter.ai/api/v1/`
+//                                       ^ notice the trailing slash. that's what makes it invalid
+
+let nl = await OpenRouterClient.chat([{
+    role: "user",
+    content: [
+        { type: "text", text: "Hello World" },
+    ],
+}], {
+    model: "deepseek/deepseek-r1-0528-qwen3-8b",
+});
+
+console.dir(nl);
+```
+
+This works for streaming too. It's literally the same Class constructor signature
